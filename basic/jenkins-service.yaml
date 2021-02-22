@@ -13,8 +13,7 @@ spec:
     protocol: TCP
 
 ---
-# JNLP(JAVA NETWORK LAUNCH PROTOCOL) is used to Connect 
-# to/launch your java application( here Jenkins) from a remote location
+
 apiVersion: v1
 kind: Service
 metadata:
