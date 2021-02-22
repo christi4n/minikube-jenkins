@@ -1,0 +1,21 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: jenkins
+  namespace: jenkins
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["*"]
