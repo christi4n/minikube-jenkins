@@ -2,6 +2,7 @@
 
 ### History
 
+2021-03-03 - 1.0.2: update Jenkins to 2.263.4-lts
 2021-22-02 - 1.0.1: code update
 2021-22-02 - 1.0.0: initial release
 
@@ -43,4 +44,13 @@ minikube start --memory=8096 --driver=virtualbox --kubernetes-version=v1.20.0 --
 ```
 
 See "minikube ssh"
+
+### Update deployment
+
+In case you need to update the jenkins image used for your deployment, you may use the following syntax:
+
+```
+kubectl set image deployments jenkins jenkins=jenkins/jenkins:2.263.4-lts --namespace=jenkins
+kubectl rollout status deployments jenkins
+```
 
