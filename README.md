@@ -3,8 +3,13 @@
 ### History
 
 2021-03-03 - 1.0.2: update Jenkins to 2.263.4-lts
+
 2021-22-02 - 1.0.1: code update
+
 2021-22-02 - 1.0.0: initial release
+
+
+![Jenkins backend](https://raw.githubusercontent.com/christi4n/minikube-jenkins/master/assets/jenkins-backend-overview.png)
 
 ### Jenkins yaml files definitions
 
@@ -43,7 +48,11 @@ To start Minikube and mount folders, see below. My Minikube cluster is running u
 minikube start --memory=8096 --driver=virtualbox --kubernetes-version=v1.20.0 --mount=true --mount-string="/hosthome/christian/Work/Projets/kubernetes/Volumes/jenkins_home:/data/jenkins_home/"
 ```
 
+This command should be launched only once. The next time, just use "minikube start".
+
 See "minikube ssh"
+
+### Access
 
 ### Update deployment
 
