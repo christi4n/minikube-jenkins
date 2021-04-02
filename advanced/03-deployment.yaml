@@ -15,14 +15,14 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: jenkins/jenkins:2.263.4-lts
+          image: chrisnt5/jenkins:1.0.0
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "512Mi"
-              cpu: "0.5"
+              memory: "784Mi"
+              cpu: "750m"
             requests:
-              cpu: "0.25"
+              cpu: "500m"
           ports:
             - name: http-port
               containerPort: 8080
@@ -31,6 +31,8 @@ spec:
           volumeMounts:
             - name: jenkins-vol
               mountPath: /var/jenkins_home
+            - name: dockersock
+              mountPath: /var/run/docker.sock
       volumes:
         - name: jenkins-vol
           persistentVolumeClaim:
@@ -41,6 +43,9 @@ spec:
           #hostPath:
           #  path: /opt/jenkins
           #  type: Directory
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

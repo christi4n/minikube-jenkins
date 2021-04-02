@@ -42,10 +42,12 @@ Check that the directory is correcly mounted:
 kubectl exec --namespace=jenkins --stdin --tty jenkins-655f99d864-mxxd4 -- /bin/bash
 ```
 
-To start Minikube and mount folders, see below. My Minikube cluster is running under Linux. If you are using Virtualbox with minikube, /Users for Mac or /hosthome for Linux are automatically mounted. In my case, I run a Minikube cluster under Linux.
+To start Minikube and mount folders, see below. My Minikube cluster is running under Linux. If you are using Virtualbox with minikube, /Users for Mac or /hosthome for Linux are automatically mounted. In my case, I run a Minikube cluster under Linux. You also have to set the environnement variable for Docker so Minikube can access it from inside.
 
 ```
 minikube start --memory=8096 --driver=virtualbox --kubernetes-version=v1.20.0 --mount=true --mount-string="/hosthome/christian/Work/Projets/kubernetes/Volumes/jenkins_home:/data/jenkins_home/"
+
+eval $(minikube docker-env)
 ```
 
 This command should be launched only once. The next time, just use "minikube start".
@@ -62,4 +64,30 @@ In case you need to update the jenkins image used for your deployment, you may u
 kubectl set image deployments jenkins jenkins=jenkins/jenkins:2.263.4-lts --namespace=jenkins
 kubectl rollout status deployments jenkins
 ```
+
+### Particular cases
+
+#### Create a jenkins configuration for Cypress.io
+
+You can optimize the configuration by creating dedicated volumes for Cypress and npm caches.
+
+```
+minikube start --memory=8096 --driver=virtualbox --kubernetes-version=v1.20.0 --mount=true --mount-string="/hosthome/christian/Work/Projets/kubernetes/Volumes/jenkins_home:/data/jenkins_home/"
+```
+
+You can also mount minikube this way:
+
+```
+minikube mount /home/christian/k8s/Volumes/npm_cache/:/var/cache/npm_cache
+```
+
+As we need to run npm commands, you should ensure that NodeJs is available. To verify that's ok, you have to go to Manage Jenkins > Manage Plugins and install NodeJS.
+Then, go to the "Global Tool Configuration" section.
+
+Add NodeJs with the following information:
+- name: node
+- install automatically: checked
+
+Select your version.
+
 
